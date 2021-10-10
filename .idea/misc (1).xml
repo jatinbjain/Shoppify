@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/app_gradient_color_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/button_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/drawable_gender_tab_selector.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/drawable_gender_tab_text_color_selector.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_black_color_back_24.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_white_color_back_24dp.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/user_image_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_base.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_forgot_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_splash.xml" value="0.11354166666666667" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/dailog_progress.xml" value="0.2" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1296875" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.24583333333333332" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

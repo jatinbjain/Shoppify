@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "477084209816",
+    "project_id": "shoppify-7c7b4",
+    "storage_bucket": "shoppify-7c7b4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477084209816:android:3ac48c7c4464aab3e236ed",
+        "android_client_info": {
+          "package_name": "com.example.shoppify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477084209816-o2t849i77r8hc1btemt346ocsk29g44j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shoppify",
+            "certificate_hash": "151d9a88c896340d4bd52ed53b7314132e3e266c"
+          }
+        },
+        {
+          "client_id": "477084209816-9q67h6l1dqf81i1b2clpf7o3qtq2dqac.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc0dRiD40n0pKZrGLkmGz1QBX0V2XJLXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477084209816-9q67h6l1dqf81i1b2clpf7o3qtq2dqac.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
