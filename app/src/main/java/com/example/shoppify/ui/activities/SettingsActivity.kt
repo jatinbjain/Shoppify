@@ -10,7 +10,9 @@ import com.example.shoppify.utils.Constants
 import com.example.shoppify.utils.GlideLoader
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.activity_settings.toolbar_settings_activity as toolbar_settings_activity1
+import kotlinx.android.synthetic.main.activity_user_profile.iv_user_photo as iv_user_photo1
 
 class SettingsActivity : BaseActivity(), View.OnClickListener {
 
@@ -25,7 +27,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
 
 
 
-    private fun setupActionBar() {
+  /*  private fun setupActionBar() {
 
         setSupportActionBar(this.toolbar_settings_activity1)
 
@@ -36,7 +38,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         }
 
         toolbar_settings_activity1.setNavigationOnClickListener { onBackPressed() }
-    }
+    }*/
 
     private fun getUserDetails() {
 
@@ -63,7 +65,6 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
     }
     override fun onResume() {
         super.onResume()
-
         getUserDetails()
     }
 
@@ -71,7 +72,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         if (v != null) {
             when (v.id) {
 
-                R.id.tv_edit -> {
+               R.id.tv_edit -> {
                     val intent = Intent(this@SettingsActivity, UserProfileActivity::class.java)
                     intent.putExtra(Constants.EXTRA_USER_DETAILS, mUserDetails)
                     startActivity(intent)

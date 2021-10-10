@@ -23,9 +23,10 @@ import kotlinx.android.synthetic.main.activity_register.et_first_name
 import kotlinx.android.synthetic.main.activity_register.et_last_name
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.activity_user_profile.*
-import kotlinx.android.synthetic.main.activity_user_profile.iv_user_photo
 import java.io.IOException
 import kotlinx.android.synthetic.main.activity_register.tv_title as tv_title1
+import kotlinx.android.synthetic.main.activity_settings.tv_title as tv_title1
+import kotlinx.android.synthetic.main.activity_user_profile.iv_user_photo as iv_user_photo1
 
 class UserProfileActivity : BaseActivity(),View.OnClickListener {
     private lateinit var mUserDetails: User
@@ -43,7 +44,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
 
         if (mUserDetails.profileCompleted == 0) {
             // Update the title of the screen to complete profile.
-       //    tv_title.text = resources.getString(R.string.title_complete_profile)
+          tv_title.text = resources.getString(R.string.title_complete_profile)
 
             // Here, the some of the edittext components are disabled because it is added at a time of Registration.
             et_first_name.isEnabled = false
@@ -60,7 +61,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
          //   setupActionBar()
 
             // Update the title of the screen to edit profile.
-          // tv_title.text = resources.getString(R.string.title_edit_profile)
+          tv_title.text = resources.getString(R.string.title_edit_profile)
 
             // Load the image using the GlideLoader class with the use of Glide Library.
             GlideLoader(this@UserProfileActivity).loadUserPicture(mUserDetails.image, iv_user_photo)
@@ -80,10 +81,11 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
             } else {
                 rb_female.isChecked = true
             }
-            iv_user_photo.setOnClickListener(this@UserProfileActivity)
-            // Assign the on click event to the SAVE button.
-            btn_submit.setOnClickListener(this@UserProfileActivity)
+
         }
+        iv_user_photo.setOnClickListener(this@UserProfileActivity)
+        // Assign the on click event to the SAVE button.
+        btn_submit.setOnClickListener(this@UserProfileActivity)
     }
 
     override fun onClick(v: View?) {
@@ -165,7 +167,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
                         // The uri of selected image from phone storage.
                         mSelectedImageFileUri = data.data!!
 
-                        //iv_user_photo.setImageURI(Uri.parse(selectedImageFileUri.toString()))
+                        iv_user_photo.setImageURI(Uri.parse(mSelectedImageFileUri.toString()))
                         GlideLoader(this@UserProfileActivity).loadUserPicture(mSelectedImageFileUri!!, iv_user_photo)
                     } catch (e: IOException) {
                         e.printStackTrace()
@@ -207,12 +209,12 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         // Here the field which are not editable needs no update. So, we will update user Mobile Number and Gender for now.
 
         // Here we get the text from editText and trim the space
-        val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
+
         val firstName = et_first_name.text.toString().trim { it <= ' ' }
         if (firstName != mUserDetails.firstName) {
             userHashMap[Constants.FIRST_NAME] = firstName
         }
-
+        val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
         // Get the LastName from editText and trim the space
         val lastName = et_last_name.text.toString().trim { it <= ' ' }
         if (lastName != mUserDetails.lastName) {
@@ -223,7 +225,6 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         } else {
             Constants.FEMALE
         }
-        userHashMap[Constants.COMPLETE_PROFILE] = 1
         if (mUserProfileImageURL.isNotEmpty()) {
             userHashMap[Constants.IMAGE] = mUserProfileImageURL
         }
@@ -234,7 +235,6 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         if (gender.isNotEmpty() && gender != mUserDetails.gender) {
             userHashMap[Constants.GENDER] = gender
         }
-        userHashMap[Constants.GENDER] = gender
         if (mUserDetails.profileCompleted == 0) {
             userHashMap[Constants.COMPLETE_PROFILE] = 1
         }
