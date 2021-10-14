@@ -20,14 +20,17 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-
+        setupActionBar()
         tv_edit.setOnClickListener(this)
         btn_logout.setOnClickListener(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        getUserDetails()
+    }
 
-
-  /*  private fun setupActionBar() {
+   private fun setupActionBar() {
 
         setSupportActionBar(this.toolbar_settings_activity1)
 
@@ -38,7 +41,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         }
 
         toolbar_settings_activity1.setNavigationOnClickListener { onBackPressed() }
-    }*/
+    }
 
     private fun getUserDetails() {
 
@@ -46,7 +49,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         showProgressDialog(resources.getString(R.string.please_wait))
 
         // Call the function of Firestore class to get the user details from firestore which is already created.
-        FirestoreClass().getUserDetails(this)
+        FirestoreClass().getUserDetails(this@SettingsActivity)
     }
 
     fun userDetailsSuccess(user: User) {
@@ -63,10 +66,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         tv_mobile_number.text = "${user.mobile}"
 
     }
-    override fun onResume() {
-        super.onResume()
-        getUserDetails()
-    }
+
 
     override fun onClick(v: View?) {
         if (v != null) {

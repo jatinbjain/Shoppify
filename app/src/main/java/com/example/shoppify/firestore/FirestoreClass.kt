@@ -44,7 +44,7 @@ class FirestoreClass {
             }
     }
 
-    private fun getCurrentUserID(): String {
+    fun getCurrentUserID(): String {
         // An Instance of currentUser using FirebaseAuth
         val currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -60,13 +60,7 @@ class FirestoreClass {
     fun getUserDetails(activity: Activity) {
 
         // Here we pass the collection name from which we wants the data.
-        mFirestore.collection(Constants.USERS)
-            // The document id to get the Fields of user.
-            .document(getCurrentUserID())
-            .get()
-            .addOnSuccessListener { document ->
-
-                Log.i(activity.javaClass.simpleName, document.toString())
+        mFirestore.collection(Constants.USERS).document(getCurrentUserID()).get().addOnSuccessListener { document -> Log.i(activity.javaClass.simpleName, document.toString())
 
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val user = document.toObject(User::class.java)!!

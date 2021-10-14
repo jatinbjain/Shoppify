@@ -58,7 +58,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         } else {
 
             // Call the setup action bar function.
-         //   setupActionBar()
+           setupActionBar()
 
             // Update the title of the screen to edit profile.
           tv_title.text = resources.getString(R.string.title_edit_profile)
@@ -267,5 +267,18 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
 
         mUserProfileImageURL = imageURL
         updateUserProfileDetails()
+    }
+
+    private fun setupActionBar() {
+
+        setSupportActionBar(toolbar_user_profile_activity)
+
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true)
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_white_color_back_24dp)
+        }
+
+        toolbar_user_profile_activity.setNavigationOnClickListener { onBackPressed() }
     }
 }

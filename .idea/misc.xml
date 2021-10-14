@@ -10,6 +10,7 @@
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.2703125" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_black_color_back_24.xml" value="0.2703125" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_vector_add_photo.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_vector_chevron_right.xml" value="0.2625" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_vector_dashboard.xml" value="0.2625" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_vector_products.xml" value="0.2625" />
@@ -17,6 +18,7 @@
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_white_color_back_24dp.xml" value="0.2703125" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/item_grey_border_background.xml" value="0.2625" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/user_image_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_add_product.xml" value="0.10885416666666667" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_base.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_dash_board.xml" value="0.16" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_dashboard.xml" value="0.24635416666666668" />
@@ -31,6 +33,7 @@
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_dashboard.xml" value="0.12239583333333333" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_home.xml" value="0.12239583333333333" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_notifications.xml" value="0.13177083333333334" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/menu/add_product_menu.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/menu/bottom_nav_menu.xml" value="0.24635416666666668" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/menu/dashboard_menu.xml" value="0.14947916666666666" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1296875" />

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.example.shoppify.R
+import com.example.shoppify.firestore.FirestoreClass
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity : AppCompatActivity() {
@@ -21,7 +22,15 @@ class SplashActivity : AppCompatActivity() {
         Handler().postDelayed(
             {
 
-                startActivity(Intent(this@SplashActivity, DashBoardActivity::class.java))
+                val currentUserID = FirestoreClass().getCurrentUserID()
+
+                if (currentUserID.isNotEmpty()) {
+                    // Launch dashboard screen.
+                    startActivity(Intent(this@SplashActivity, DashBoardActivity::class.java))
+                } else {
+                    // Launch the Login Activity
+                    startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+                }
                 finish()
             },
             2500
