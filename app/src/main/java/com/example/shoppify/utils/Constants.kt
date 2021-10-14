@@ -29,6 +29,9 @@ object Constants {
     const val IMAGE: String = "image"
     const val USER_PROFILE_IMAGE:String = "User_Profile_Image"
     const val COMPLETE_PROFILE: String = "profileCompleted"
+    const val PRODUCT_IMAGE: String = "Product_Image"
+
+    const val PRODUCTS: String = "products"
     fun showImageChooser(activity: Activity) {
 
         val galleryIntent = Intent(
