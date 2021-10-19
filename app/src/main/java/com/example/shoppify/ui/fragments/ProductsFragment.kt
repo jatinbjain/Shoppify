@@ -120,14 +120,7 @@ class ProductsFragment : BaseFragment() {
      * @param productID To specify which product need to be deleted.
      */
     fun deleteProduct(productID: String) {
-
-        // Here we will call the delete function of the FirestoreClass. But, for now lets display the Toast message and call this function from adapter class.
-
-        Toast.makeText(
-            requireActivity(),
-            "You can now delete the product. $productID",
-            Toast.LENGTH_SHORT
-        ).show()
+        showAlertDialogToDeleteProduct(productID)
     }
 
     fun productDeleteSuccess() {
