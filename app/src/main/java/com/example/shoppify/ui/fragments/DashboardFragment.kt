@@ -11,6 +11,7 @@ import com.example.shoppify.databinding.FragmentDashboardBinding
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Product
 import com.example.shoppify.ui.activities.SettingsActivity
+import com.example.shoppify.ui.adapters.DashboardItemsListAdapter
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : BaseFragment() {
