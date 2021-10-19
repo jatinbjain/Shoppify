@@ -269,7 +269,7 @@ class FirestoreClass {
     /**
      * A function to get the dashboard items list. The list will be an overall items list, not based on the user's id.
      */
-   /* fun getDashboardItemsList(fragment: DashboardFragment) {
+    fun getDashboardItemsList(fragment: DashboardFragment) {
         // The collection name for PRODUCTS
         mFirestore.collection(Constants.PRODUCTS)
             .get() // Will get the documents snapshots.
@@ -297,5 +297,5 @@ class FirestoreClass {
                 fragment.hideProgressDialog()
                 Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
             }
-    }*/
+    }
 }

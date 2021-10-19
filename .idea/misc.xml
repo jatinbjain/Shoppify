@@ -17,6 +17,7 @@
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_vector_products.xml" value="0.2625" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_vector_settings.xml" value="0.165625" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/ic_white_color_back_24dp.xml" value="0.2703125" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/item_dashboard_background.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/item_grey_border_background.xml" value="0.2625" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/rv_item_image_background.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/drawable/user_image_background.xml" value="0.2703125" />
@@ -33,10 +34,11 @@
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/dailog_progress.xml" value="0.2" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_base.xml" value="0.25" />
-        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_dashboard.xml" value="0.12239583333333333" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_dashboard.xml" value="0.176" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_home.xml" value="0.12239583333333333" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_notifications.xml" value="0.13177083333333334" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/fragment_products.xml" value="0.17074275362318841" />
+        <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/item_dashboard_layout.xml" value="0.25" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/layout/item_list_layout.xml" value="0.25" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/menu/add_product_menu.xml" value="0.23802083333333332" />
         <entry key="..\:/Users/Jatin Jain/Shoppify/app/src/main/res/menu/bottom_nav_menu.xml" value="0.24635416666666668" />
