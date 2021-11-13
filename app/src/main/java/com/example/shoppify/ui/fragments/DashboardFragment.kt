@@ -10,6 +10,7 @@ import com.example.shoppify.R
 import com.example.shoppify.databinding.FragmentDashboardBinding
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Product
+import com.example.shoppify.ui.activities.CartListActivity
 import com.example.shoppify.ui.activities.ProductDetailsActivity
 import com.example.shoppify.ui.activities.SettingsActivity
 import com.example.shoppify.ui.adapters.DashboardItemsListAdapter
@@ -56,6 +57,10 @@ class DashboardFragment : BaseFragment() {
         when (id) {
             R.id.action_settings -> {
                 startActivity(Intent(activity, SettingsActivity::class.java))
+                return true
+            }
+            R.id.action_cart -> {
+                startActivity(Intent(activity, CartListActivity::class.java))
                 return true
             }
         }
