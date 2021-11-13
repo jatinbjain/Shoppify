@@ -21,7 +21,7 @@ object Constants {
 
     const val FIRST_NAME: String = "firstName"
     const val LAST_NAME: String = "lastName"
-
+    const val EXTRA_PRODUCT_ID: String = "extra_product_id"
 
     // Firebase database field names
     const val MOBILE: String = "mobile"

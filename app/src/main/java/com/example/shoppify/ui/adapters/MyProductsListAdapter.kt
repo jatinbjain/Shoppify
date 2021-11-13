@@ -10,6 +10,7 @@ import com.example.shoppify.R
 import com.example.shoppify.models.Product
 import com.example.shoppify.ui.activities.ProductDetailsActivity
 import com.example.shoppify.ui.fragments.ProductsFragment
+import com.example.shoppify.utils.Constants
 import com.example.shoppify.utils.GlideLoader
 import kotlinx.android.synthetic.main.item_list_layout.view.*
 
@@ -50,6 +51,7 @@ open class MyProductsListAdapter(
             holder.itemView.setOnClickListener {
                 // Launch Product details screen.
                 val intent = Intent(context, ProductDetailsActivity::class.java)
+                intent.putExtra(Constants.EXTRA_PRODUCT_ID, model.product_id)
                 context.startActivity(intent)
             }
         }
