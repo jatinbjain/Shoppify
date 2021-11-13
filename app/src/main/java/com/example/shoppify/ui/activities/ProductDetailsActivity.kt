@@ -3,6 +3,7 @@ package com.example.shoppify.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Product
@@ -20,7 +21,18 @@ class ProductDetailsActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_PRODUCT_ID)) {
             mProductId =
                 intent.getStringExtra(Constants.EXTRA_PRODUCT_ID)!!
-            Log.i("Product Id", mProductId)
+        }
+        var productOwnerId: String = ""
+
+        if (intent.hasExtra(Constants.EXTRA_PRODUCT_OWNER_ID)) {
+            productOwnerId =
+                intent.getStringExtra(Constants.EXTRA_PRODUCT_OWNER_ID)!!
+        }
+
+        if (FirestoreClass().getCurrentUserID() == productOwnerId) {
+            btn_add_to_cart.visibility = View.GONE
+        } else {
+            btn_add_to_cart.visibility = View.VISIBLE
         }
 
         setupActionBar()
