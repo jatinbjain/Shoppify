@@ -6,14 +6,16 @@ import android.util.Log
 import android.view.View
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
+import com.example.shoppify.models.CartItem
 import com.example.shoppify.models.Product
 import com.example.shoppify.utils.Constants
 import com.example.shoppify.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_product_details.*
 
-class ProductDetailsActivity : BaseActivity() {
+class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
 
     private var mProductId: String = ""
+    private lateinit var mProductDetails: Product
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_details)
@@ -37,6 +39,8 @@ class ProductDetailsActivity : BaseActivity() {
 
         setupActionBar()
         getProductDetails()
+
+        btn_add_to_cart.setOnClickListener(this)
     }
 
     private fun setupActionBar() {
@@ -59,11 +63,11 @@ class ProductDetailsActivity : BaseActivity() {
     }
 
     fun productDetailsSuccess(product: Product) {
+        mProductDetails = product
 
-        // Hide Progress dialog.
         hideProgressDialog()
 
-        // Populate the product details in the UI.
+
         GlideLoader(this@ProductDetailsActivity).loadProductPicture(
             product.image,
             iv_product_detail_image
@@ -73,5 +77,28 @@ class ProductDetailsActivity : BaseActivity() {
         tv_product_details_price.text = "Rs. ${product.price}"
         tv_product_details_description.text = product.description
         tv_product_details_available_quantity.text = product.stock_quantity
+    }
+
+    override fun onClick(v: View?) {
+        if (v != null) {
+            when (v.id) {
+
+                R.id.btn_add_to_cart -> {
+                    addToCart()
+                }
+            }
+        }
+    }
+
+    private fun addToCart() {
+
+        val addToCart = CartItem(
+            FirestoreClass().getCurrentUserID(),
+            mProductId,
+            mProductDetails.title,
+            mProductDetails.price,
+            mProductDetails.image,
+            Constants.DEFAULT_CART_QUANTITY
+        )
     }
 }
