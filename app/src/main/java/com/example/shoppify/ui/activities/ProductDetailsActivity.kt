@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.example.shoppify.R
+import com.example.shoppify.firestore.FirestoreClass
+import com.example.shoppify.models.Product
 import com.example.shoppify.utils.Constants
+import com.example.shoppify.utils.GlideLoader
 import kotlinx.android.synthetic.main.activity_product_details.*
 
 class ProductDetailsActivity : BaseActivity() {
@@ -21,6 +24,7 @@ class ProductDetailsActivity : BaseActivity() {
         }
 
         setupActionBar()
+        getProductDetails()
     }
 
     private fun setupActionBar() {
@@ -34,5 +38,28 @@ class ProductDetailsActivity : BaseActivity() {
         }
 
         toolbar_product_details_activity.setNavigationOnClickListener { onBackPressed() }
+    }
+    private fun getProductDetails() {
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getProductDetails(this@ProductDetailsActivity, mProductId)
+    }
+
+    fun productDetailsSuccess(product: Product) {
+
+        // Hide Progress dialog.
+        hideProgressDialog()
+
+        // Populate the product details in the UI.
+        GlideLoader(this@ProductDetailsActivity).loadProductPicture(
+            product.image,
+            iv_product_detail_image
+        )
+
+        tv_product_details_title.text = product.title
+        tv_product_details_price.text = "Rs. ${product.price}"
+        tv_product_details_description.text = product.description
+        tv_product_details_available_quantity.text = product.stock_quantity
     }
 }

@@ -10,8 +10,10 @@ import com.example.shoppify.R
 import com.example.shoppify.databinding.FragmentDashboardBinding
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Product
+import com.example.shoppify.ui.activities.ProductDetailsActivity
 import com.example.shoppify.ui.activities.SettingsActivity
 import com.example.shoppify.ui.adapters.DashboardItemsListAdapter
+import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 class DashboardFragment : BaseFragment() {
@@ -91,6 +93,15 @@ class DashboardFragment : BaseFragment() {
 
             val adapter = DashboardItemsListAdapter(requireActivity(), dashboardItemsList)
             rv_dashboard_items.adapter = adapter
+
+            adapter.setOnClickListener(object :
+                DashboardItemsListAdapter.OnClickListener {
+                override fun onClick(position: Int, product: Product) {
+                    val intent = Intent(context, ProductDetailsActivity::class.java)
+                    intent.putExtra(Constants.EXTRA_PRODUCT_ID, product.product_id)
+                    startActivity(intent)
+                }
+            })
         } else {
             rv_dashboard_items.visibility = View.GONE
             tv_no_dashboard_items_found.visibility = View.VISIBLE
