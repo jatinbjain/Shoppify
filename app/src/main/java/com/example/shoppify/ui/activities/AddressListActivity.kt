@@ -4,9 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Address
+import com.example.shoppify.ui.adapters.AddressListAdapter
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -43,12 +46,21 @@ class AddressListActivity : BaseActivity() {
     }
 
     fun successAddressListFromFirestore(addressList: ArrayList<Address>) {
-
         hideProgressDialog()
 
-        for (i in addressList) {
+        if (addressList.size > 0) {
 
-            Log.i("Name and Address", "${i.name} ::  ${i.address}")
+            rv_address_list.visibility = View.VISIBLE
+            tv_no_address_found.visibility = View.GONE
+
+            rv_address_list.layoutManager = LinearLayoutManager(this@AddressListActivity)
+            rv_address_list.setHasFixedSize(true)
+
+            val addressAdapter = AddressListAdapter(this@AddressListActivity, addressList)
+            rv_address_list.adapter = addressAdapter
+        } else {
+            rv_address_list.visibility = View.GONE
+            tv_no_address_found.visibility = View.VISIBLE
         }
     }
 }
