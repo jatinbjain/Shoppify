@@ -43,6 +43,10 @@ object Constants {
     const val HOME: String = "Home"
     const val OFFICE: String = "Office"
     const val OTHER: String = "Other"
+    const val ADDRESSES: String = "addresses"
+
+
+    const val ADD_ADDRESS_REQUEST_CODE: Int = 121
     fun showImageChooser(activity: Activity) {
 
         val galleryIntent = Intent(

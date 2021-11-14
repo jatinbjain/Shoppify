@@ -3,6 +3,8 @@ package com.example.shoppify.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.View
+import android.widget.Toast
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Address
@@ -15,6 +17,17 @@ class AddEditAddressActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit_address)
         setupActionBar()
+
+        btn_submit_address.setOnClickListener {
+            saveAddressToFirestore()
+        }
+        rg_type.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId == R.id.rb_other) {
+                til_other_details.visibility = View.VISIBLE
+            } else {
+                til_other_details.visibility = View.GONE
+            }
+        }
     }
     private fun setupActionBar() {
 
@@ -104,6 +117,20 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
+            FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
         }
+    }
+
+    fun addUpdateAddressSuccess() {
+
+        hideProgressDialog()
+
+        Toast.makeText(
+            this@AddEditAddressActivity,
+            resources.getString(R.string.err_your_address_added_successfully),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        finish()
     }
 }
