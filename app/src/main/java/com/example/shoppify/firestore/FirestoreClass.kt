@@ -267,9 +267,6 @@ class FirestoreClass {
             }
     }
 
-    /**
-     * A function to get the dashboard items list. The list will be an overall items list, not based on the user's id.
-     */
     fun getDashboardItemsList(fragment: DashboardFragment) {
         // The collection name for PRODUCTS
         mFirestore.collection(Constants.PRODUCTS)
@@ -424,6 +421,86 @@ class FirestoreClass {
                 }
 
                 Log.e(activity.javaClass.simpleName, "Error while getting the cart list items.", e)
+            }
+    }
+
+    fun getAllProductsList(activity: CartListActivity) {
+        mFirestore.collection(Constants.PRODUCTS)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e("Products List", document.documents.toString())
+
+                val productsList: ArrayList<Product> = ArrayList()
+
+                for (i in document.documents) {
+
+                    val product = i.toObject(Product::class.java)
+                    product!!.product_id = i.id
+
+                    productsList.add(product)
+                }
+
+                activity.successProductsListFromFireStore(productsList)
+            }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
+
+                Log.e("Get Product List", "Error while getting all product list.", e)
+            }
+    }
+
+    fun removeItemFromCart(context: Context, cart_id: String) {
+
+        mFirestore.collection(Constants.CART_ITEMS)
+            .document(cart_id) // cart id
+            .delete()
+            .addOnSuccessListener {
+
+                when (context) {
+                    is CartListActivity -> {
+                        context.itemRemovedSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+
+                when (context) {
+                    is CartListActivity -> {
+                        context.hideProgressDialog()
+                    }
+                }
+                Log.e(
+                    context.javaClass.simpleName,
+                    "Error while removing the item from the cart list.",
+                    e
+                )
+            }
+    }
+
+    fun updateMyCart(context: Context, cart_id: String, itemHashMap: HashMap<String, Any>) {
+
+        mFirestore.collection(Constants.CART_ITEMS)
+            .document(cart_id)
+            .update(itemHashMap)
+            .addOnSuccessListener {
+                when (context) {
+                    is CartListActivity -> {
+                        context.itemUpdateSuccess()
+                    }
+                }
+            }
+            .addOnFailureListener { e ->
+
+                when (context) {
+                    is CartListActivity -> {
+                        context.hideProgressDialog()
+                    }
+                }
+
+                Log.e(
+                    context.javaClass.simpleName,
+                    "Error while updating the cart item.",
+                    e
+                )
             }
     }
 }

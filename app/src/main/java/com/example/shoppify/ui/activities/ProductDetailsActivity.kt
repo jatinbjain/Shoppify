@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.CartItem
@@ -79,6 +80,30 @@ class ProductDetailsActivity : BaseActivity(), View.OnClickListener {
         tv_product_details_price.text = "Rs. ${product.price}"
         tv_product_details_description.text = product.description
         tv_product_details_available_quantity.text = product.stock_quantity
+
+        if(product.stock_quantity.toInt() == 0){
+
+            hideProgressDialog()
+
+            btn_add_to_cart.visibility = View.GONE
+
+            tv_product_details_available_quantity.text =
+                resources.getString(R.string.lbl_out_of_stock)
+
+            tv_product_details_available_quantity.setTextColor(
+                ContextCompat.getColor(
+                    this@ProductDetailsActivity,
+                    R.color.colorSnackBarError
+                )
+            )
+        }else{
+
+            if (FirestoreClass().getCurrentUserID() == product.user_id) {
+                hideProgressDialog()
+            } else {
+                FirestoreClass().checkIfItemExistInCart(this@ProductDetailsActivity, mProductId)
+            }
+        }
 
         if (FirestoreClass().getCurrentUserID() == product.user_id) {
 
