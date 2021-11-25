@@ -18,6 +18,7 @@ import com.example.shoppify.utils.SwipeToDeleteCallback
 import com.example.shoppify.utils.SwipeToEditCallback
 import kotlinx.android.synthetic.main.activity_address_list.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_address_list.tv_title as tv_title1
 
 class AddressListActivity : BaseActivity() {
 
@@ -35,6 +36,10 @@ class AddressListActivity : BaseActivity() {
         if (intent.hasExtra(Constants.EXTRA_SELECT_ADDRESS)) {
             mSelectAddress =
                 intent.getBooleanExtra(Constants.EXTRA_SELECT_ADDRESS, false)
+        }
+
+        if (mSelectAddress) {
+            tv_title.text = resources.getString(R.string.title_select_address)
         }
     }
 
