@@ -1,5 +1,6 @@
 package com.example.shoppify.ui.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -30,9 +31,10 @@ class AddressListActivity : BaseActivity() {
 
         tv_add_address.setOnClickListener {
             val intent = Intent(this@AddressListActivity, AddEditAddressActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent,Constants.ADD_ADDRESS_REQUEST_CODE)
         }
 
+        getAddressList()
         if (intent.hasExtra(Constants.EXTRA_SELECT_ADDRESS)) {
             mSelectAddress =
                 intent.getBooleanExtra(Constants.EXTRA_SELECT_ADDRESS, false)
@@ -43,9 +45,22 @@ class AddressListActivity : BaseActivity() {
         }
     }
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == Constants.ADD_ADDRESS_REQUEST_CODE) {
+
+                getAddressList()
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+
+            Log.e("Request Cancelled", "To add the address.")
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
-        getAddressList()
     }
     private fun setupActionBar() {
 
@@ -77,9 +92,10 @@ class AddressListActivity : BaseActivity() {
             rv_address_list.layoutManager = LinearLayoutManager(this@AddressListActivity)
             rv_address_list.setHasFixedSize(true)
 
-            val addressAdapter = AddressListAdapter(this@AddressListActivity, addressList)
+            val addressAdapter = AddressListAdapter(this@AddressListActivity, addressList,mSelectAddress)
             rv_address_list.adapter = addressAdapter
 
+            if (!mSelectAddress){
             val editSwipeHandler = object : SwipeToEditCallback(this) {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
 
@@ -106,7 +122,7 @@ class AddressListActivity : BaseActivity() {
             }
             val deleteItemTouchHelper = ItemTouchHelper(deleteSwipeHandler)
             deleteItemTouchHelper.attachToRecyclerView(rv_address_list)
-
+        }
         } else {
             rv_address_list.visibility = View.GONE
             tv_no_address_found.visibility = View.VISIBLE

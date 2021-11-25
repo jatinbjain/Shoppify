@@ -171,13 +171,17 @@ class AddEditAddressActivity : BaseActivity() {
     fun addUpdateAddressSuccess() {
 
         hideProgressDialog()
-
+        val notifySuccessMessage: String = if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()) {
+            resources.getString(R.string.msg_your_address_updated_successfully)
+        } else {
+            resources.getString(R.string.err_your_address_added_successfully)
+        }
         Toast.makeText(
             this@AddEditAddressActivity,
-            resources.getString(R.string.err_your_address_added_successfully),
+            notifySuccessMessage,
             Toast.LENGTH_SHORT
         ).show()
-
+        setResult(RESULT_OK)
         finish()
     }
 }
