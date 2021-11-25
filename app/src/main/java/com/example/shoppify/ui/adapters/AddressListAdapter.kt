@@ -1,13 +1,17 @@
 package com.example.shoppify.ui.adapters
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppify.R
 import com.example.shoppify.models.Address
+import com.example.shoppify.ui.activities.AddEditAddressActivity
+import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
 open class AddressListAdapter(
@@ -40,6 +44,17 @@ open class AddressListAdapter(
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    fun notifyEditItem(activity: Activity, position: Int) {
+        val intent = Intent(context, AddEditAddressActivity::class.java)
+        // TODO Step 6: Pass the address details through intent to edit the address.
+        // START
+        intent.putExtra(Constants.EXTRA_ADDRESS_DETAILS, list[position])
+        // END
+        activity.startActivity(intent)
+
+        notifyItemChanged(position) // Notify any registered observers that the item at position has changed.
     }
 
     private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

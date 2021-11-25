@@ -11,12 +11,48 @@ import com.example.shoppify.models.Address
 import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.activity_add_edit_address.*
 import kotlinx.android.synthetic.main.activity_address_list.*
+import kotlinx.android.synthetic.main.activity_add_edit_address.tv_title as tv_title1
 
 class AddEditAddressActivity : BaseActivity() {
+
+    private var mAddressDetails: Address? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_edit_address)
         setupActionBar()
+
+        if (intent.hasExtra(Constants.EXTRA_ADDRESS_DETAILS)) {
+            mAddressDetails =
+                intent.getParcelableExtra(Constants.EXTRA_ADDRESS_DETAILS)!!
+        }
+
+        if (mAddressDetails != null) {
+            if (mAddressDetails!!.id.isNotEmpty()) {
+
+                tv_title.text = resources.getString(R.string.title_edit_address)
+                btn_submit_address.text = resources.getString(R.string.btn_lbl_update)
+
+                et_full_name.setText(mAddressDetails?.name)
+                et_phone_number.setText(mAddressDetails?.mobileNumber)
+                et_address.setText(mAddressDetails?.address)
+                et_zip_code.setText(mAddressDetails?.zipCode)
+                et_additional_note.setText(mAddressDetails?.additionalNote)
+
+                when (mAddressDetails?.type) {
+                    Constants.HOME -> {
+                        rb_home.isChecked = true
+                    }
+                    Constants.OFFICE -> {
+                        rb_office.isChecked = true
+                    }
+                    else -> {
+                        rb_other.isChecked = true
+                        til_other_details.visibility = View.VISIBLE
+                        et_other_details.setText(mAddressDetails?.otherDetails)
+                    }
+                }
+            }
+        }
 
         btn_submit_address.setOnClickListener {
             saveAddressToFirestore()
@@ -117,7 +153,18 @@ class AddEditAddressActivity : BaseActivity() {
                 addressType,
                 otherDetails
             )
-            FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
+
+            if (mAddressDetails != null && mAddressDetails!!.id.isNotEmpty()) {
+                FirestoreClass().updateAddress(
+                    this@AddEditAddressActivity,
+                    addressModel,
+                    mAddressDetails!!.id
+                )
+            } else {
+                FirestoreClass().addAddress(this@AddEditAddressActivity, addressModel)
+            }
+
+
         }
     }
 

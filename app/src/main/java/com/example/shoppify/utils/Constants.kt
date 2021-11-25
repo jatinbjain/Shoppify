@@ -47,6 +47,8 @@ object Constants {
 
 
     const val ADD_ADDRESS_REQUEST_CODE: Int = 121
+
+    const val EXTRA_ADDRESS_DETAILS: String = "AddressDetails"
     fun showImageChooser(activity: Activity) {
 
         val galleryIntent = Intent(
