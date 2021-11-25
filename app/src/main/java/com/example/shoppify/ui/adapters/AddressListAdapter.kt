@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppify.R
 import com.example.shoppify.models.Address
 import com.example.shoppify.ui.activities.AddEditAddressActivity
+import com.example.shoppify.ui.activities.CheckoutActivity
 import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.item_address_layout.view.*
 
