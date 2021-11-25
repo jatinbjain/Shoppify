@@ -1,5 +1,6 @@
 package com.example.shoppify.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.CartItem
 import com.example.shoppify.models.Product
 import com.example.shoppify.ui.adapters.CartItemsListAdapter
+import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.activity_cart_list.*
 import kotlinx.android.synthetic.main.activity_product_details.*
 import kotlinx.android.synthetic.main.activity_product_details.toolbar_product_details_activity
@@ -22,6 +24,12 @@ class CartListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cart_list)
         setupActionBar()
+
+        btn_checkout.setOnClickListener {
+            val intent = Intent(this@CartListActivity, AddressListActivity::class.java)
+            intent.putExtra(Constants.EXTRA_SELECT_ADDRESS, true)
+            startActivity(intent)
+        }
     }
     private fun setupActionBar() {
 

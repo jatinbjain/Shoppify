@@ -577,7 +577,7 @@ class FirestoreClass {
             .delete()
             .addOnSuccessListener {
 
-               // activity.deleteAddressSuccess()
+                activity.deleteAddressSuccess()
             }
             .addOnFailureListener { e ->
                 activity.hideProgressDialog()
