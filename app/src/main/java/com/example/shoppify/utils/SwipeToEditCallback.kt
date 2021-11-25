@@ -1,14 +1,16 @@
 package com.example.shoppify.utils
 
 import android.content.Context
+import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import com.example.shoppify.R
 
 abstract class SwipeToEditCallback(context: Context) : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
-    private val editIcon = ContextCompat.getDrawable(context, R.drawable.ic_vector_white_edit)
+    private val editIcon = ContextCompat.getDrawable(context, R.drawable.ic_vector_edit)
     private val intrinsicWidth = editIcon!!.intrinsicWidth
     private val intrinsicHeight = editIcon!!.intrinsicHeight
     private val background = ColorDrawable()
