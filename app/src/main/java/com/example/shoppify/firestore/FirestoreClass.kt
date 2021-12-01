@@ -412,11 +412,17 @@ class FirestoreClass {
                     is CartListActivity -> {
                         activity.successCartItemsList(list)
                     }
+                    is CheckoutActivity -> {
+                        activity.successCartItemsList(list)
+                    }
                 }
             }
             .addOnFailureListener { e ->
                 when (activity) {
                     is CartListActivity -> {
+                        activity.hideProgressDialog()
+                    }
+                    is CheckoutActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
@@ -425,7 +431,7 @@ class FirestoreClass {
             }
     }
 
-    fun getAllProductsList(activity: CartListActivity) {
+    fun getAllProductsList(activity: Activity) {
         mFirestore.collection(Constants.PRODUCTS)
             .get()
             .addOnSuccessListener { document ->
@@ -440,10 +446,26 @@ class FirestoreClass {
 
                     productsList.add(product)
                 }
+                when (activity) {
+                    is CartListActivity -> {
+                        activity.successProductsListFromFireStore(productsList)
+                    }
+                    is CheckoutActivity -> {
+                        activity.successProductsListFromFireStore(productsList)
+                    }
 
-                activity.successProductsListFromFireStore(productsList)
+                }
             }.addOnFailureListener { e ->
-                activity.hideProgressDialog()
+                    when (activity) {
+                        is CartListActivity -> {
+                            activity.hideProgressDialog()
+                        }
+                        is CheckoutActivity -> {
+                            activity.hideProgressDialog()
+                        }
+
+                    }
+
 
                 Log.e("Get Product List", "Error while getting all product list.", e)
             }

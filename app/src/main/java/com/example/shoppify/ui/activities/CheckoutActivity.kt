@@ -3,13 +3,19 @@ package com.example.shoppify.ui.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.shoppify.R
+import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Address
+import com.example.shoppify.models.CartItem
+import com.example.shoppify.models.Product
 import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.activity_checkout.*
 
-class CheckoutActivity : AppCompatActivity() {
+class CheckoutActivity : BaseActivity() {
 
     private var mAddressDetails: Address? = null
+
+    private lateinit var mProductsList: ArrayList<Product>
+    private lateinit var mCartItemsList: ArrayList<CartItem>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
@@ -30,6 +36,7 @@ class CheckoutActivity : AppCompatActivity() {
             }
             tv_checkout_mobile_number.text = mAddressDetails?.mobileNumber
         }
+        getProductList()
     }
     private fun setupActionBar() {
 
@@ -42,5 +49,31 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         toolbar_checkout_activity.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    private fun getProductList() {
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getAllProductsList(this@CheckoutActivity)
+    }
+
+    fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
+
+        mProductsList = productsList
+
+        getCartItemsList()
+    }
+    private fun getCartItemsList() {
+
+        FirestoreClass().getCartList(this@CheckoutActivity)
+    }
+    fun successCartItemsList(cartList: ArrayList<CartItem>) {
+
+        hideProgressDialog()
+
+
+        mCartItemsList = cartList
+
     }
 }
