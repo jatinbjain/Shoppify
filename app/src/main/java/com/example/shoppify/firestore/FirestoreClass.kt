@@ -6,10 +6,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.shoppify.models.Address
-import com.example.shoppify.models.CartItem
-import com.example.shoppify.models.Product
-import com.example.shoppify.models.User
+import com.example.shoppify.models.*
 import com.example.shoppify.ui.activities.*
 import com.example.shoppify.ui.fragments.DashboardFragment
 import com.example.shoppify.ui.fragments.ProductsFragment
@@ -606,6 +603,25 @@ class FirestoreClass {
                 Log.e(
                     activity.javaClass.simpleName,
                     "Error while deleting the address.",
+                    e
+                )
+            }
+    }
+
+    fun placeOrder(activity: CheckoutActivity, order: Order) {
+
+        mFirestore.collection(Constants.ORDERS)
+            .document()
+            .set(order, SetOptions.merge())
+            .addOnSuccessListener {
+                activity.orderPlacedSuccess()
+            }
+            .addOnFailureListener { e ->
+
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName,
+                    "Error while placing an order.",
                     e
                 )
             }
