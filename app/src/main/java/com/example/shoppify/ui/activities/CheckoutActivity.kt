@@ -2,11 +2,14 @@ package com.example.shoppify.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Address
 import com.example.shoppify.models.CartItem
 import com.example.shoppify.models.Product
+import com.example.shoppify.ui.adapters.CartItemsListAdapter
 import com.example.shoppify.utils.Constants
 import kotlinx.android.synthetic.main.activity_checkout.*
 
@@ -71,9 +74,23 @@ class CheckoutActivity : BaseActivity() {
     fun successCartItemsList(cartList: ArrayList<CartItem>) {
 
         hideProgressDialog()
-
+        for (product in mProductsList) {
+            for (cartItem in cartList) {
+                if (product.product_id == cartItem.product_id) {
+                    cartItem.stock_quantity = product.stock_quantity
+                }
+            }
+        }
 
         mCartItemsList = cartList
+
+        rv_cart_list_items.layoutManager = LinearLayoutManager(this@CheckoutActivity)
+        rv_cart_list_items.setHasFixedSize(true)
+
+        val cartListAdapter = CartItemsListAdapter(this@CheckoutActivity, mCartItemsList, false)
+        rv_cart_list_items.adapter = cartListAdapter
+
+
 
     }
 }
