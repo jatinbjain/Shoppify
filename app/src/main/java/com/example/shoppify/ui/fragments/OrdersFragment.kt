@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppify.R
 import com.example.shoppify.firestore.FirestoreClass
 import com.example.shoppify.models.Order
+import com.example.shoppify.ui.adapters.MyOrdersListAdapter
 import kotlinx.android.synthetic.main.fragment_orders.*
 
 
