@@ -146,6 +146,12 @@ class CheckoutActivity : BaseActivity() {
 
     fun orderPlacedSuccess() {
 
+        FirestoreClass().updateAllDetails(this@CheckoutActivity, mCartItemsList)
+    }
+
+    fun allDetailsUpdatedSuccessfully() {
+
+
         hideProgressDialog()
 
         Toast.makeText(this@CheckoutActivity, "Your order placed successfully.", Toast.LENGTH_SHORT)

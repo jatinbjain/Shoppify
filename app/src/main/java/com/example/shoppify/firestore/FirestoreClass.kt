@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.example.shoppify.models.*
 import com.example.shoppify.ui.activities.*
 import com.example.shoppify.ui.fragments.DashboardFragment
+import com.example.shoppify.ui.fragments.OrdersFragment
 import com.example.shoppify.ui.fragments.ProductsFragment
 import com.example.shoppify.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
@@ -624,6 +625,69 @@ class FirestoreClass {
                     "Error while placing an order.",
                     e
                 )
+            }
+    }
+
+    fun updateAllDetails(activity: CheckoutActivity, cartList: ArrayList<CartItem>) {
+
+        val writeBatch = mFirestore.batch()
+
+        for (cartItem in cartList) {
+
+            val productHashMap = HashMap<String, Any>()
+
+            productHashMap[Constants.STOCK_QUANTITY] =
+                (cartItem.stock_quantity.toInt() - cartItem.cart_quantity.toInt()).toString()
+
+            val documentReference = mFirestore.collection(Constants.PRODUCTS)
+                .document(cartItem.product_id)
+
+            writeBatch.update(documentReference, productHashMap)
+        }
+
+        for (cartItem in cartList) {
+
+            val documentReference = mFirestore.collection(Constants.CART_ITEMS)
+                .document(cartItem.id)
+            writeBatch.delete(documentReference)
+        }
+
+        writeBatch.commit().addOnSuccessListener {
+
+            activity.allDetailsUpdatedSuccessfully()
+
+        }.addOnFailureListener { e ->
+
+            activity.hideProgressDialog()
+
+            Log.e(activity.javaClass.simpleName, "Error while updating all the details after order placed.", e)
+        }
+    }
+
+    fun getMyOrdersList(fragment: OrdersFragment) {
+        mFirestore.collection(Constants.ORDERS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<Order> = ArrayList()
+
+                for (i in document.documents) {
+
+                    val orderItem = i.toObject(Order::class.java)!!
+                    orderItem.id = i.id
+
+                    list.add(orderItem)
+                }
+
+
+                fragment.populateOrdersListInUI(list)
+            }
+            .addOnFailureListener { e ->
+
+                fragment.hideProgressDialog()
+
+                Log.e(fragment.javaClass.simpleName, "Error while getting the orders list.", e)
             }
     }
 }

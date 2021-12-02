@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shoppify.R
+import com.example.shoppify.firestore.FirestoreClass
+import com.example.shoppify.models.Order
+import kotlinx.android.synthetic.main.fragment_orders.*
 
 
-class OrdersFragment : Fragment() {
+class OrdersFragment : BaseFragment() {
 
    // private lateinit var notificationsViewModel: NotificationsViewModel
 
@@ -22,16 +26,45 @@ class OrdersFragment : Fragment() {
      //   notificationsViewModel = ViewModelProvider(this).get(NotificationsViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_orders, container, false)
-        val textView: TextView = root.findViewById(R.id.text_notifications)
 
-
-
-            textView.text = "This is Notification fragment"
 
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+    }
+
+    fun populateOrdersListInUI(ordersList: ArrayList<Order>) {
+
+        hideProgressDialog()
+
+
+        if (ordersList.size > 0) {
+
+            rv_my_order_items.visibility = View.VISIBLE
+            tv_no_orders_found.visibility = View.GONE
+
+            rv_my_order_items.layoutManager = LinearLayoutManager(activity)
+            rv_my_order_items.setHasFixedSize(true)
+
+            val myOrdersAdapter = MyOrdersListAdapter(requireActivity(), ordersList)
+            rv_my_order_items.adapter = myOrdersAdapter
+        } else {
+            rv_my_order_items.visibility = View.GONE
+            tv_no_orders_found.visibility = View.VISIBLE
+        }
+    }
+
+    private fun getMyOrdersList() {
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        FirestoreClass().getMyOrdersList(this@OrdersFragment)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getMyOrdersList()
     }
 }
