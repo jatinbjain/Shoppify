@@ -11,6 +11,7 @@ import com.example.shoppify.ui.activities.*
 import com.example.shoppify.ui.fragments.DashboardFragment
 import com.example.shoppify.ui.fragments.OrdersFragment
 import com.example.shoppify.ui.fragments.ProductsFragment
+import com.example.shoppify.ui.fragments.SoldProductsFragment
 import com.example.shoppify.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -688,6 +689,30 @@ class FirestoreClass {
                 fragment.hideProgressDialog()
 
                 Log.e(fragment.javaClass.simpleName, "Error while getting the orders list.", e)
+            }
+    }
+    fun getSoldProductsList(fragment: SoldProductsFragment) {
+
+        mFirestore.collection(Constants.SOLD_PRODUCTS)
+            .whereEqualTo(Constants.USER_ID, getCurrentUserID())
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(fragment.javaClass.simpleName, document.documents.toString())
+                val list: ArrayList<SoldProduct> = ArrayList()
+                for (i in document.documents) {
+                    val soldProduct = i.toObject(SoldProduct::class.java)!!
+                    soldProduct.id = i.id
+                    list.add(soldProduct)
+                }
+                fragment.successSoldProductsList(list)
+            }
+            .addOnFailureListener { e ->
+                fragment.hideProgressDialog()
+                Log.e(
+                    fragment.javaClass.simpleName,
+                    "Error while getting the list of sold products.",
+                    e
+                )
             }
     }
 }
