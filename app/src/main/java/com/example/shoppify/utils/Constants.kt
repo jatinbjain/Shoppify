@@ -58,6 +58,8 @@ object Constants {
     const val STOCK_QUANTITY: String = "stock_quantity"
 
     const val EXTRA_MY_ORDER_DETAILS: String = "extra_MY_ORDER_DETAILS"
+
+    const val SOLD_PRODUCTS: String = "sold_products"
     fun showImageChooser(activity: Activity) {
 
         val galleryIntent = Intent(
