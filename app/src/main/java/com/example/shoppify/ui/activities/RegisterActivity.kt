@@ -90,21 +90,19 @@ class RegisterActivity : BaseActivity() {
 
     private fun registerUser() {
 
-        // Check with validate function if the entries are valid or not.
         if (validateRegisterDetails()) {
             showProgressDialog(resources.getString(R.string.please_wait))
             val email: String = et_email.text.toString().trim { it <= ' ' }
             val password: String = et_password.text.toString().trim { it <= ' ' }
 
-            // Create an instance and create a register a user with email and password.
+
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(
                     OnCompleteListener<AuthResult> { task ->
 
-                        // If the registration is successfully done
                         if (task.isSuccessful) {
 
-                            // Firebase registered user
+
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
 
@@ -120,7 +118,7 @@ class RegisterActivity : BaseActivity() {
                             //finish()
                         } else {
                             hideProgressDialog()
-                            // If the registering is not successful then show error message.
+
                             showErrorSnackBar(task.exception!!.message.toString(), true)
                         }
                     })

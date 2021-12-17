@@ -43,10 +43,9 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         }
 
         if (mUserDetails.profileCompleted == 0) {
-            // Update the title of the screen to complete profile.
+
           tv_title.text = resources.getString(R.string.title_complete_profile)
 
-            // Here, the some of the edittext components are disabled because it is added at a time of Registration.
             et_first_name.isEnabled = false
             et_first_name.setText(mUserDetails.firstName)
 
@@ -57,16 +56,16 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
             et_email.setText(mUserDetails.email)
         } else {
 
-            // Call the setup action bar function.
+
            setupActionBar()
 
-            // Update the title of the screen to edit profile.
+
           tv_title.text = resources.getString(R.string.title_edit_profile)
 
-            // Load the image using the GlideLoader class with the use of Glide Library.
+
             GlideLoader(this@UserProfileActivity).loadUserPicture(mUserDetails.image, iv_user_photo)
 
-            // Set the existing values to the UI and allow user to edit except the Email ID.
+
             et_first_name.setText(mUserDetails.firstName)
             et_last_name.setText(mUserDetails.lastName)
 
@@ -84,7 +83,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
 
         }
         iv_user_photo.setOnClickListener(this@UserProfileActivity)
-        // Assign the on click event to the SAVE button.
+
         btn_submit.setOnClickListener(this@UserProfileActivity)
     }
 
@@ -142,12 +141,12 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
-            //If permission is granted
+
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 Constants.showImageChooser(this)
             } else {
-                //Displaying another toast if permission is not granted
+
                 Toast.makeText(
                     this,
                     resources.getString(R.string.read_storage_permission_denied),
@@ -164,7 +163,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
             if (requestCode == Constants.PICK_IMAGE_REQUEST_CODE) {
                 if (data != null) {
                     try {
-                        // The uri of selected image from phone storage.
+
                         mSelectedImageFileUri = data.data!!
 
                         iv_user_photo.setImageURI(Uri.parse(mSelectedImageFileUri.toString()))
@@ -180,7 +179,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            // A log is printed when user close or cancel the image selection.
+
             Log.e("Request Cancelled", "Image selection cancelled")
         }
     }
@@ -188,11 +187,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
     private fun validateUserProfileDetails(): Boolean {
         return when {
 
-            // We have kept the user profile picture is optional.
-            // The FirstName, LastName, and Email Id are not editable when they come from the login screen.
-            // The Radio button for Gender always has the default selected value.
 
-            // Check if the mobile number is not empty as it is mandatory to enter.
             TextUtils.isEmpty(et_mobile_number.text.toString().trim { it <= ' ' }) -> {
                 showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
                 false
@@ -206,16 +201,14 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
 
         val userHashMap = HashMap<String, Any>()
 
-        // Here the field which are not editable needs no update. So, we will update user Mobile Number and Gender for now.
 
-        // Here we get the text from editText and trim the space
 
         val firstName = et_first_name.text.toString().trim { it <= ' ' }
         if (firstName != mUserDetails.firstName) {
             userHashMap[Constants.FIRST_NAME] = firstName
         }
         val mobileNumber = et_mobile_number.text.toString().trim { it <= ' ' }
-        // Get the LastName from editText and trim the space
+
         val lastName = et_last_name.text.toString().trim { it <= ' ' }
         if (lastName != mUserDetails.lastName) {
             userHashMap[Constants.LAST_NAME] = lastName
@@ -238,7 +231,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         if (mUserDetails.profileCompleted == 0) {
             userHashMap[Constants.COMPLETE_PROFILE] = 1
         }
-        // call the registerUser function of FireStore class to make an entry in the database.
+
         FirestoreClass().updateUserProfileData(
             this@UserProfileActivity,
             userHashMap
@@ -246,7 +239,7 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
     }
     fun userProfileUpdateSuccess() {
 
-        // Hide the progress dialog
+
         hideProgressDialog()
 
         Toast.makeText(
@@ -256,13 +249,12 @@ class UserProfileActivity : BaseActivity(),View.OnClickListener {
         ).show()
 
 
-        // Redirect to the Main Screen after profile completion.
+
         startActivity(Intent(this@UserProfileActivity, DashBoardActivity::class.java))
         finish()
     }
     fun imageUploadSuccess(imageURL: String) {
 
-        // Hide the progress dialog
        // hideProgressDialog()
 
         mUserProfileImageURL = imageURL

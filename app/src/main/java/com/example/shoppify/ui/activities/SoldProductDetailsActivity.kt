@@ -42,12 +42,12 @@ class SoldProductDetailsActivity : BaseActivity() {
 
         tv_order_details_id.text = productDetails.order_id
 
-        // Date Format in which the date will be displayed in the UI.
+
         val dateFormat = "dd MMM yyyy HH:mm"
-        // Create a DateFormatter object for displaying date in specified format.
+
         val formatter = SimpleDateFormat(dateFormat, Locale.getDefault())
 
-        // Create a calendar object that will convert the date and time value in milliseconds to date.
+
         val calendar: Calendar = Calendar.getInstance()
         calendar.timeInMillis = productDetails.order_date
         tv_order_details_date.text = formatter.format(calendar.time)

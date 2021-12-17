@@ -27,7 +27,6 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
 
     private var mSelectedImageFileUri: Uri? = null
 
-    // A global variable for uploaded product image URL.
     private var mProductImageURL: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +53,7 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
         if (v != null) {
             when (v.id) {
 
-                // The permission code is similar to the user profile image selection.
+
                 R.id.iv_add_update_product -> {
                     if (ContextCompat.checkSelfPermission(
                             this,
@@ -64,9 +63,7 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
                     ) {
                         Constants.showImageChooser(this@AddProductActivity)
                     } else {
-                        /*Requests permissions to be granted to this application. These permissions
-                         must be requested in your manifest, they should not be granted to your app,
-                         and they should have protection level*/
+
                         ActivityCompat.requestPermissions(
                             this,
                             arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -92,12 +89,10 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {
-            //If permission is granted
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 Constants.showImageChooser(this)
             } else {
-                //Displaying another toast if permission is not granted
                 Toast.makeText(
                     this,
                     resources.getString(R.string.read_storage_permission_denied),
@@ -117,7 +112,6 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
                     }
 
                 try {
-                    // Load the product image in the ImageView.
                     GlideLoader(this@AddProductActivity).loadUserPicture(
                         mSelectedImageFileUri!!,
                         iv_product_image
@@ -181,7 +175,6 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
 
     fun imageUploadSuccess(imageURL: String) {
 
-        // Initialize the global image url variable.
         mProductImageURL = imageURL
 
         uploadProductDetails()
@@ -189,12 +182,11 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
 
     private fun uploadProductDetails() {
 
-        // Get the logged in username from the SharedPreferences that we have stored at a time of login.
         val username =
             this.getSharedPreferences(Constants.SHOPPIFY_PREFERENCES, Context.MODE_PRIVATE)
                 .getString(Constants.LOGGED_IN_USERNAME, "")!!
 
-        // Here we get the text from editText and trim the space
+
         val product = Product(
             FirestoreClass().getCurrentUserID(),
             username,
@@ -210,7 +202,6 @@ class AddProductActivity : BaseActivity() , View.OnClickListener{
 
     fun productUploadSuccess() {
 
-        // Hide the progress dialog
         hideProgressDialog()
 
         Toast.makeText(

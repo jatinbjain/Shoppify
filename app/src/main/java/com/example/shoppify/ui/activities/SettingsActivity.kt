@@ -56,7 +56,7 @@ class SettingsActivity : BaseActivity(), View.OnClickListener {
         mUserDetails = user
         hideProgressDialog()
 
-        // Load the image using the Glide Loader class.
+
         GlideLoader(this@SettingsActivity).loadUserPicture(user.image, iv_user_photo)
 
         tv_name.text = "${user.firstName} ${user.lastName}"

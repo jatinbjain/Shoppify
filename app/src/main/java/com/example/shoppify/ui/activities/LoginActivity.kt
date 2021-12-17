@@ -35,14 +35,14 @@ class LoginActivity : BaseActivity(),View.OnClickListener {
         hideProgressDialog()
 
 
-        // Redirect the user to Main Screen after log in.
+
         if (user.profileCompleted == 0) {
             // If the user profile is incomplete then launch the UserProfileActivity.
             val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
             intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
             startActivity(intent)
         } else {
-            // Redirect the user to Main Screen after log in.
+
             startActivity(Intent(this@LoginActivity, DashBoardActivity::class.java))
         }
         finish()
@@ -90,10 +90,8 @@ class LoginActivity : BaseActivity(),View.OnClickListener {
 
         if (validateLoginDetails()) {
 
-            // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            // Get the text from editText and trim the space
             val email = et_email.text.toString().trim { it <= ' ' }
             val password = et_password.text.toString().trim { it <= ' ' }
 
