@@ -59,9 +59,7 @@ open class DashboardItemsListAdapter(
         }
     }
 
-    /**
-     * Gets the number of items in the list
-     */
+
     override fun getItemCount(): Int {
         return list.size
     }

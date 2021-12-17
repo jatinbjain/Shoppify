@@ -25,15 +25,13 @@ class FirestoreClass {
 
     fun registerUser(activity: RegisterActivity, userInfo: User) {
 
-        // The "users" is collection name. If the collection is already created then it will not create the same one again.
         mFirestore.collection(Constants.USERS)
-            // Document ID for users fields. Here the document it is the User ID.
+
             .document(userInfo.id)
-            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge later on instead of replacing the fields.
+
             .set(userInfo, SetOptions.merge())
             .addOnSuccessListener {
 
-                // Here call a function of base activity for transferring the result to it.
                 activity.userRegistrationSuccess()
             }
             .addOnFailureListener { e ->
@@ -47,10 +45,10 @@ class FirestoreClass {
     }
 
     fun getCurrentUserID(): String {
-        // An Instance of currentUser using FirebaseAuth
+
         val currentUser = FirebaseAuth.getInstance().currentUser
 
-        // A variable to assign the currentUserId if it is not null or else it will be blank.
+
         var currentUserID = ""
         if (currentUser != null) {
             currentUserID = currentUser.uid
@@ -61,10 +59,10 @@ class FirestoreClass {
 
     fun getUserDetails(activity: Activity) {
 
-        // Here we pass the collection name from which we wants the data.
+
         mFirestore.collection(Constants.USERS).document(getCurrentUserID()).get().addOnSuccessListener { document -> Log.i(activity.javaClass.simpleName, document.toString())
 
-                // Here we have received the document snapshot which is converted into the User Data model object.
+
                 val user = document.toObject(User::class.java)!!
 
 
@@ -74,7 +72,7 @@ class FirestoreClass {
                         Context.MODE_PRIVATE
                     )
 
-                // Create an instance of the editor which is help us to edit the SharedPreference.
+
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
                 editor.putString(
                     Constants.LOGGED_IN_USERNAME,
@@ -96,7 +94,7 @@ class FirestoreClass {
 
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error. And print the error in log.
+
                 when (activity) {
                     is LoginActivity -> {
                         activity.hideProgressDialog()
@@ -114,20 +112,18 @@ class FirestoreClass {
             }
     }
     fun updateUserProfileData(activity: Activity, userHashMap: HashMap<String, Any>) {
-        // Collection Name
+
         mFirestore.collection(Constants.USERS)
-            // Document ID against which the data to be updated. Here the document id is the current logged in user id.
+
             .document(getCurrentUserID())
-            // A HashMap of fields which are to be updated.
+
             .update(userHashMap)
             .addOnSuccessListener {
 
-                // TODO Step 9: Notify the success result to the base activity.
-                // START
-                // Notify the success result.
+
                 when (activity) {
                     is UserProfileActivity -> {
-                        // Call a function of base activity for transferring the result to it.
+
                         activity.userProfileUpdateSuccess()
                     }
                 }
@@ -136,7 +132,7 @@ class FirestoreClass {
 
                 when (activity) {
                     is UserProfileActivity -> {
-                        // Hide the progress dialog if there is any error. And print the error in log.
+
                         activity.hideProgressDialog()
                     }
                 }
@@ -159,23 +155,20 @@ class FirestoreClass {
             )
         )
 
-        //adding the file to reference
         sRef.putFile(imageFileURI!!)
             .addOnSuccessListener { taskSnapshot ->
-                // The image upload is success
+
                 Log.e(
                     "Firebase Image URL",
                     taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
                 )
 
-                // Get the downloadable url from the task snapshot
+
                 taskSnapshot.metadata!!.reference!!.downloadUrl
                     .addOnSuccessListener { uri ->
                         Log.e("Downloadable Image URL", uri.toString())
 
-                        // TODO Step 8: Pass the success result to base class.
-                        // START
-                        // Here call a function of base activity for transferring the result to it.
+
                         when (activity) {
                             is UserProfileActivity -> {
                                 activity.imageUploadSuccess(uri.toString())
@@ -208,11 +201,11 @@ class FirestoreClass {
 
         mFirestore.collection(Constants.PRODUCTS)
             .document()
-            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+
             .set(productInfo, SetOptions.merge())
             .addOnSuccessListener {
 
-                // Here call a function of base activity for transferring the result to it.
+
                 activity.productUploadSuccess()
             }
             .addOnFailureListener { e ->
@@ -229,19 +222,19 @@ class FirestoreClass {
 
 
     fun getProductsList(fragment: Fragment) {
-        // The collection name for PRODUCTS
+
         mFirestore.collection(Constants.PRODUCTS)
             .whereEqualTo(Constants.USER_ID, getCurrentUserID())
-            .get() // Will get the documents snapshots.
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
+
                 Log.e("Products List", document.documents.toString())
 
-                // Here we have created a new instance for Products ArrayList.
+
                 val productsList: ArrayList<Product> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
+
                 for (i in document.documents) {
 
                     val product = i.toObject(Product::class.java)
@@ -257,7 +250,7 @@ class FirestoreClass {
                 }
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error based on the base class instance.
+
                 when (fragment) {
                     is ProductsFragment -> {
                         fragment.hideProgressDialog()
@@ -268,18 +261,18 @@ class FirestoreClass {
     }
 
     fun getDashboardItemsList(fragment: DashboardFragment) {
-        // The collection name for PRODUCTS
+
         mFirestore.collection(Constants.PRODUCTS)
-            .get() // Will get the documents snapshots.
+            .get()
             .addOnSuccessListener { document ->
 
-                // Here we get the list of boards in the form of documents.
+
                 Log.e(fragment.javaClass.simpleName, document.documents.toString())
 
-                // Here we have created a new instance for Products ArrayList.
+
                 val productsList: ArrayList<Product> = ArrayList()
 
-                // A for loop as per the list of documents to convert them into Products ArrayList.
+
                 for (i in document.documents) {
 
                     val product = i.toObject(Product::class.java)!!
@@ -287,11 +280,11 @@ class FirestoreClass {
                     productsList.add(product)
                 }
 
-                // Pass the success result to the base fragment.
+
                 fragment.successDashboardItemsList(productsList)
             }
             .addOnFailureListener { e ->
-                // Hide the progress dialog if there is any error which getting the dashboard items list.
+
                 fragment.hideProgressDialog()
                 Log.e(fragment.javaClass.simpleName, "Error while getting dashboard items list.", e)
             }
@@ -304,11 +297,9 @@ class FirestoreClass {
             .delete()
             .addOnSuccessListener {
 
-                // TODO Step 4: Notify the success result to the base class.
-                // START
-                // Notify the success result to the base class.
+
                 fragment.productDeleteSuccess()
-                // END
+
             }
             .addOnFailureListener { e ->
 

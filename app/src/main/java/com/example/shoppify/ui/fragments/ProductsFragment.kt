@@ -70,10 +70,9 @@ class ProductsFragment : BaseFragment() {
     }
 
     private fun getProductListFromFireStore() {
-        // Show the progress dialog.
+
         showProgressDialog(resources.getString(R.string.please_wait))
 
-        // Call the function of Firestore class.
         FirestoreClass().getProductsList(this@ProductsFragment)
     }
 
@@ -83,14 +82,9 @@ class ProductsFragment : BaseFragment() {
         getProductListFromFireStore()
     }
 
-    /**
-     * A function to get the successful product list from cloud firestore.
-     *
-     * @param productsList Will receive the product list from cloud firestore.
-     */
+
     fun successProductsListFromFireStore(productsList: ArrayList<Product>) {
 
-        // Hide Progress dialog.
         hideProgressDialog()
 
         if (productsList.size > 0) {
@@ -100,11 +94,9 @@ class ProductsFragment : BaseFragment() {
             rv_my_product_items.layoutManager = LinearLayoutManager(activity)
             rv_my_product_items.setHasFixedSize(true)
 
-            // TODO Step 7: Pass the third parameter value.
-            // START
+
             val adapterProducts =
                 MyProductsListAdapter(requireActivity(), productsList, this@ProductsFragment)
-            // END
             rv_my_product_items.adapter = adapterProducts
         } else {
             rv_my_product_items.visibility = View.GONE
@@ -112,20 +104,13 @@ class ProductsFragment : BaseFragment() {
         }
     }
 
-    // TODO Step 5: Create a function that will call the delete function of FirestoreClass that will delete the product added by the user.
-    // START
-    /**
-     * A function that will call the delete function of FirestoreClass that will delete the product added by the user.
-     *
-     * @param productID To specify which product need to be deleted.
-     */
+
     fun deleteProduct(productID: String) {
         showAlertDialogToDeleteProduct(productID)
     }
 
     fun productDeleteSuccess() {
 
-        // Hide the progress dialog
         hideProgressDialog()
 
         Toast.makeText(
@@ -134,42 +119,33 @@ class ProductsFragment : BaseFragment() {
             Toast.LENGTH_SHORT
         ).show()
 
-        // Get the latest products list from cloud firestore.
         getProductListFromFireStore()
     }
 
     private fun showAlertDialogToDeleteProduct(productID: String) {
 
         val builder = AlertDialog.Builder(requireActivity())
-        //set title for alert dialog
         builder.setTitle(resources.getString(R.string.delete_dialog_title))
-        //set message for alert dialog
         builder.setMessage(resources.getString(R.string.delete_dialog_message))
         builder.setIcon(android.R.drawable.ic_dialog_alert)
 
-        //performing positive action
+
         builder.setPositiveButton(resources.getString(R.string.yes)) { dialogInterface, _ ->
 
-            // TODO Step 7: Call the function to delete the product from cloud firestore.
-            // START
-            // Show the progress dialog.
             showProgressDialog(resources.getString(R.string.please_wait))
 
-            // Call the function of Firestore class.
+
             FirestoreClass().deleteProduct(this@ProductsFragment, productID)
-            // END
 
             dialogInterface.dismiss()
         }
 
-        //performing negative action
         builder.setNegativeButton(resources.getString(R.string.no)) { dialogInterface, _ ->
 
             dialogInterface.dismiss()
         }
-        // Create the AlertDialog
+
         val alertDialog: AlertDialog = builder.create()
-        // Set other dialog properties
         alertDialog.setCancelable(false)
         alertDialog.show()
     }

@@ -73,11 +73,9 @@ class DashboardFragment : BaseFragment() {
         getDashboardItemsList()
     }
 
-    /**
-     * A function to get the dashboard items list from cloud firestore.
-     */
+
     private fun getDashboardItemsList() {
-        // Show the progress dialog.
+
         showProgressDialog(resources.getString(R.string.please_wait))
 
         FirestoreClass().getDashboardItemsList(this@DashboardFragment)
@@ -85,7 +83,7 @@ class DashboardFragment : BaseFragment() {
 
     fun successDashboardItemsList(dashboardItemsList: ArrayList<Product>) {
 
-        // Hide the progress dialog.
+
         hideProgressDialog()
 
         if (dashboardItemsList.size > 0) {
